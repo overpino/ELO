@@ -1,0 +1,6 @@
+{
+  "name": "EUNICE × UFV Bridge",
+  "description": "Smart STEM career aggregator and mobility engine bridging Universidade Federal de Viçosa (UFV) and the 10 EUNICE European Universities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
