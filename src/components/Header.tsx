@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
               style={{ borderRadius: WOBBLY_RADIUS.card }}
             >
               <span>Campus Hub & Local Calls</span>
-              {activeSection === 'campus-hub' && <span className="text-[#ff4d4d]">★</span>}
+              {activeSection === 'campus-hub' && <span className="text-[#ff4d4d] font-bold">✓</span>}
             </button>
 
             <button
@@ -174,7 +174,7 @@ export const Header: React.FC<HeaderProps> = ({
               style={{ borderRadius: WOBBLY_RADIUS.card }}
             >
               <span>Opportunities</span>
-              {activeSection === 'opportunities' && <span className="text-[#ff4d4d]">★</span>}
+              {activeSection === 'opportunities' && <span className="text-[#ff4d4d] font-bold">✓</span>}
             </button>
 
             <button
@@ -187,7 +187,7 @@ export const Header: React.FC<HeaderProps> = ({
               style={{ borderRadius: WOBBLY_RADIUS.card }}
             >
               <span>Pioneers in STEM</span>
-              {activeSection === 'pioneers' && <span className="text-[#ff4d4d]">★</span>}
+              {activeSection === 'pioneers' && <span className="text-[#ff4d4d] font-bold">✓</span>}
             </button>
 
             <button
@@ -200,7 +200,7 @@ export const Header: React.FC<HeaderProps> = ({
               style={{ borderRadius: WOBBLY_RADIUS.card }}
             >
               <span>Entrance Prep Hub</span>
-              {activeSection === 'prep-hub' && <span className="text-[#ff4d4d]">★</span>}
+              {activeSection === 'prep-hub' && <span className="text-[#ff4d4d] font-bold">✓</span>}
             </button>
 
             <button
@@ -213,7 +213,7 @@ export const Header: React.FC<HeaderProps> = ({
               style={{ borderRadius: WOBBLY_RADIUS.card }}
             >
               <span>WhatsApp Newsletter</span>
-              {activeSection === 'whatsapp' && <span className="text-[#ff4d4d]">★</span>}
+              {activeSection === 'whatsapp' && <span className="text-[#ff4d4d] font-bold">✓</span>}
             </button>
           </div>
         </div>

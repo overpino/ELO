@@ -5,7 +5,6 @@ import {
   Clock,
   Languages,
   Banknote,
-  Sparkles,
   ArrowRight,
   GraduationCap,
 } from 'lucide-react';
@@ -124,7 +123,6 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
               className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#ff4d4d] text-white border-2 border-[#2d2d2d] shadow-hard-sm font-marker text-xs sm:text-sm font-bold shrink-0"
               style={{ borderRadius: WOBBLY_RADIUS.badge }}
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#fff9c4]" />
               {calculatedScore}% Match
             </span>
           </div>

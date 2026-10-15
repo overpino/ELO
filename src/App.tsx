@@ -21,7 +21,6 @@ import {
   LayoutGrid,
   Columns2,
   Filter,
-  Sparkles,
   BookOpen,
   MessageSquare,
   Award,
@@ -297,7 +296,6 @@ export default function App() {
                     className="inline-flex items-center gap-1 px-3 py-1 bg-[#fff9c4] border-2 border-[#2d2d2d] shadow-hard-sm font-marker text-xs font-bold text-[#2d2d2d]"
                     style={{ borderRadius: WOBBLY_RADIUS.badge }}
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#ff4d4d]" />
                     {filteredOpportunities.length} Verified Positions
                   </span>
                 </div>

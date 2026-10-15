@@ -6,7 +6,6 @@ import {
   ChevronRight,
   Check,
   Search,
-  Sparkles,
   Building,
   GraduationCap,
   MapPin,
@@ -286,7 +285,7 @@ export const StackedUniversityCarousel: React.FC<StackedUniversityCarouselProps>
                         className="font-hand text-[11px] sm:text-xs px-2 py-0.5 bg-[#fff9c4] text-[#2d2d2d] border border-[#2d2d2d] shadow-2xs font-bold truncate max-w-[140px] sm:max-w-none"
                         style={{ borderRadius: WOBBLY_RADIUS.tape }}
                       >
-                        ★ {strength}
+                        {strength}
                       </span>
                     ))}
                   </div>

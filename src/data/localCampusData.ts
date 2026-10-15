@@ -13,6 +13,13 @@ export interface LocalSeminar {
   description: string;
   tags: string[];
   openToAll: boolean;
+  hasTicket?: boolean;
+  ticketPrice?: string;
+  ticketPriceNumeric?: number;
+  ticketCurrency?: string;
+  seatsTotal?: number;
+  seatsLeft?: number;
+  ticketBenefits?: string[];
 }
 
 export interface LocalBando {
@@ -98,6 +105,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Building custom ROS 2 Python/C++ nodes for real-time 3D LiDAR and RTK-GPS navigation in rough terrain environments.',
         tags: ['ROS 2', 'Autonomous Navigation', 'LiDAR', 'Robotics'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: 'R$ 45,00',
+        ticketPriceNumeric: 45,
+        ticketCurrency: 'BRL',
+        seatsTotal: 30,
+        seatsLeft: 7,
+        ticketBenefits: [
+          'Sensor prototyping kit & ROS 2 workstation provided in laboratory',
+          'Official ELO / UFV academic workshop certificate with credit recognition',
+          'Exclusive access to custom robotics source code & 3D LiDAR datasets',
+        ],
       },
       {
         id: 'ufv-sem-3',
@@ -239,6 +257,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Interactive workshop implementing kinematic navigation controllers and costmap plugins for Turtlebot 4 robots.',
         tags: ['ROS 2', 'Gazebo', 'Linux', 'Robotics'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 15,00',
+        ticketPriceNumeric: 15,
+        ticketCurrency: 'EUR',
+        seatsTotal: 25,
+        seatsLeft: 5,
+        ticketBenefits: [
+          'Reserved lab workstation with physical Turtlebot 4 robot & Gazebo Harmonic',
+          'Official UNICT academic certificate valid for 1 ECTS credit',
+          'Unlimited access to department ROS 2 navigation algorithm repository',
+        ],
       },
     ],
     bandiLocali: [
@@ -348,6 +377,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Hands-on practice writing deterministic device drivers with memory safety guarantees on ARM Cortex-M architecture.',
         tags: ['Rust', 'Embedded OS', 'Cybersecurity', 'Microcontrollers'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 12,00',
+        ticketPriceNumeric: 12,
+        ticketCurrency: 'EUR',
+        seatsTotal: 20,
+        seatsLeft: 4,
+        ticketBenefits: [
+          'ARM Cortex-M hardware testing kit provided for the practical session',
+          'Official certificate of competence in Rust for embedded systems',
+          'Direct Q&A session for industrial research internships in Poland',
+        ],
       },
     ],
     bandiLocali: [
@@ -428,6 +468,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Engineered biocatalysts breaking down commercial polyesters within 48 hours in mild aqueous media without toxic solvents.',
         tags: ['Green Chemistry', 'Polymers', 'Recycling', 'Sustainability'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 10,00',
+        ticketPriceNumeric: 10,
+        ticketCurrency: 'EUR',
+        seatsTotal: 20,
+        seatsLeft: 6,
+        ticketBenefits: [
+          'Hands-on experimental session at Materia Nova polymer testing bench',
+          'Official F.R.S.-FNRS Masterclass accreditation certificate',
+          'Early access to the bio-recycling materials sustainability report',
+        ],
       },
     ],
     bandiLocali: [
@@ -486,6 +537,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Analyzing islanded grid operations during extreme Nordic winter peaks with multi-hour lithium and sodium-ion setups.',
         tags: ['Microgrids', 'Clean Tech', 'Energy Storage', 'Nordic'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 15,00',
+        ticketPriceNumeric: 15,
+        ticketCurrency: 'EUR',
+        seatsTotal: 30,
+        seatsLeft: 8,
+        ticketBenefits: [
+          'Guided technical tour of the Technobothnia Smart Grid testbed',
+          'Official ELO Nordic Clean Energy pass & accreditation certificate',
+          'Direct access to real-time grid simulation datasets and models',
+        ],
       },
     ],
     bandiLocali: [
@@ -545,6 +607,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Coupled aero-hydro-elastic simulations (OpenFAST) examining floating turbine stabilization under 12-meter storm swell.',
         tags: ['Offshore Wind', 'Marine Energy', 'IHCantabria', 'Simulation'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 14,00',
+        ticketPriceNumeric: 14,
+        ticketCurrency: 'EUR',
+        seatsTotal: 25,
+        seatsLeft: 7,
+        ticketBenefits: [
+          'Access to the deep ocean wave basin at IHCantabria',
+          'OpenFAST numerical simulation pass with step-by-step tutorial',
+          'Official academic certificate of workshop completion',
+        ],
       },
     ],
     bandiLocali: [
@@ -604,6 +677,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'High-power-density cryogenic copper windings and inverter cooling systems tested in Lusatia wind tunnels.',
         tags: ['Hybrid Aviation', 'Clean Flight', 'Aerospace', 'CHESC'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 15,00',
+        ticketPriceNumeric: 15,
+        ticketCurrency: 'EUR',
+        seatsTotal: 35,
+        seatsLeft: 10,
+        ticketBenefits: [
+          'Exclusive technical tour of CHESC Hybrid Flight Testbed',
+          'Official Lusatia Clean Flight academic certificate',
+          'Full technical briefing materials & aerospace slides',
+        ],
       },
     ],
     bandiLocali: [
@@ -663,6 +747,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Human intent detection algorithms using proprioceptive sensors for safe cobot manufacturing cells.',
         tags: ['Cobotics', 'Industry 4.0', 'LAMIH', 'Ergonomics'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 12,00',
+        ticketPriceNumeric: 12,
+        ticketCurrency: 'EUR',
+        seatsTotal: 22,
+        seatsLeft: 5,
+        ticketBenefits: [
+          'Hands-on session with industrial cobot at LAMIH CNRS',
+          'Official Human-Robot Interaction academic certificate',
+          'Access to Transalley autonomous mobility testing track',
+        ],
       },
     ],
     bandiLocali: [
@@ -721,6 +816,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Implementing Kyber and Dilithium algorithms on low-power 32-bit RISC-V IoT silicon chips.',
         tags: ['Post-Quantum Crypto', 'RISC-V', 'Embedded Security', 'IoT'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 10,00',
+        ticketPriceNumeric: 10,
+        ticketCurrency: 'EUR',
+        seatsTotal: 20,
+        seatsLeft: 4,
+        ticketBenefits: [
+          'FPGA emulation kit for RISC-V post-quantum cryptographic primitives',
+          'Official ELKE UoP laboratory completion certificate',
+          'Department algorithmic benchmarks and performance datasets',
+        ],
       },
     ],
     bandiLocali: [
@@ -779,6 +885,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Real-time demonstration calculating NDVI vegetation indices using onboard embedded processing.',
         tags: ['Smart Farming', 'Drones', 'IoT', 'Sustainability'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '€ 12,00',
+        ticketPriceNumeric: 12,
+        ticketCurrency: 'EUR',
+        seatsTotal: 24,
+        seatsLeft: 6,
+        ticketBenefits: [
+          'Field drone demonstration flight & real-time spectral imaging',
+          'Official ESAV Agro-Biotech precision agriculture certificate',
+          'Open-source NDVI algorithm Python toolkit and dataset',
+        ],
       },
     ],
     bandiLocali: [
@@ -837,6 +954,17 @@ export const LOCAL_CAMPUS_DATA: Record<string, UniversityCampusData> = {
         description: 'Balancing rigorous mathematical privacy guarantees with empirical machine learning utility in federated medical datasets.',
         tags: ['Privacy', 'Cybersecurity', 'Data Science', 'PriSec'],
         openToAll: true,
+        hasTicket: true,
+        ticketPrice: '150 SEK (~€14,00)',
+        ticketPriceNumeric: 14,
+        ticketCurrency: 'EUR',
+        seatsTotal: 20,
+        seatsLeft: 5,
+        ticketBenefits: [
+          'Advanced PriSec masterclass in zero-knowledge proofs & privacy',
+          'Official Karlstad University academic certificate of attendance',
+          'Direct repository access to differential privacy research papers & code',
+        ],
       },
     ],
     bandiLocali: [

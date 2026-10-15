@@ -8,7 +8,6 @@ import {
   Video,
   MoreVertical,
   CheckCheck,
-  Sparkles,
   ExternalLink,
 } from 'lucide-react';
 import {
@@ -172,7 +171,6 @@ export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({
                 variant="accent"
                 className="w-full min-h-[48px]"
               >
-                <Sparkles strokeWidth={2.5} className="w-5 h-5" />
                 <span>Save & Activate Newsletter</span>
               </HandDrawnButton>
             </form>

@@ -13,7 +13,6 @@ import {
   Clock,
   MapPin,
   ExternalLink,
-  Sparkles,
   BookOpen,
   Award,
   Users,
@@ -25,8 +24,10 @@ import {
   Video,
   FileText,
   ChevronDown,
+  Ticket,
 } from 'lucide-react';
 import { TapeStrip, Thumbtack, DoodleSquiggle } from './ui/HandDrawnPrimitives';
+import { EventTicketCheckoutModal } from './EventTicketCheckoutModal';
 
 interface LocalCampusOverviewProps {
   profile: StudentProfile;
@@ -43,6 +44,12 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
   const [activeTab, setActiveTab] = useState<'seminars' | 'bandi' | 'labs' | 'community'>('seminars');
   const [savedItems, setSavedItems] = useState<Record<string, boolean>>({});
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
+  const [ticketCheckoutSeminar, setTicketCheckoutSeminar] = useState<LocalSeminar | null>(null);
+  const [purchasedTickets, setPurchasedTickets] = useState<Record<string, string>>({});
+
+  const handleTicketPurchased = (ticketId: string, seminarId: string) => {
+    setPurchasedTickets((prev) => ({ ...prev, [seminarId]: ticketId }));
+  };
 
   // Sync with profile if it updates
   React.useEffect(() => {
@@ -100,7 +107,6 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
                 className="px-2.5 py-0.5 bg-[#fff9c4] text-[#2d2d2d] font-marker text-xs border border-[#2d2d2d] inline-flex items-center gap-1 -rotate-1"
                 style={{ borderRadius: WOBBLY_RADIUS.badge }}
               >
-                <Sparkles className="w-3 h-3 text-[#ff4d4d]" />
                 {campusData.seminars.length} Open Seminars · {campusData.bandiLocali.length} Active Calls
               </span>
             </div>
@@ -229,17 +235,18 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
               <div className="flex items-center gap-2 text-sm text-[#2d2d2d]/80 font-hand">
                 <Bell className="w-4 h-4 text-[#ff4d4d] shrink-0" />
                 <span>
-                  <strong>Open Attendance:</strong> All listed colloquia and seminars are open to undergraduate/graduate students and academic visitors with no pre-registration required.
+                  <strong>Campus Workshops & Colloquia:</strong> For hands-on laboratory workshops, official student access passes (with certificates & lab kits) can be reserved securely via <strong>Stripe</strong>.
                 </span>
               </div>
               <span className="font-marker text-xs text-[#2d5da1] uppercase">
-                Updated weekly
+                Updated Weekly
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
               {campusData.seminars.map((seminar) => {
                 const isSaved = savedItems[seminar.id];
+                const ticketId = purchasedTickets[seminar.id];
                 return (
                   <div
                     key={seminar.id}
@@ -257,15 +264,23 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
                         </span>
 
                         <div className="flex items-center gap-1.5 text-xs font-hand text-[#2d2d2d]/70">
+                          {seminar.hasTicket && (
+                            <span className="px-2 py-0.5 bg-[#fff9c4] text-[#ff4d4d] border border-[#2d2d2d] rounded-sm font-marker text-xs font-bold inline-flex items-center gap-1">
+                              <Ticket className="w-3.5 h-3.5" />
+                              {seminar.ticketPrice}
+                            </span>
+                          )}
                           {seminar.isHybrid && (
                             <span className="inline-flex items-center gap-1 text-[#2d5da1] font-bold">
                               <Video className="w-3.5 h-3.5" />
                               Hybrid / Stream
                             </span>
                           )}
-                          <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-sm font-bold text-[11px]">
-                            Open Access
-                          </span>
+                          {!seminar.hasTicket && (
+                            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-sm font-bold text-[11px]">
+                              Open Access
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -288,7 +303,7 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
                       </p>
 
                       {/* Tags */}
-                      <div className="flex flex-wrap gap-1.5 mb-4">
+                      <div className="flex flex-wrap gap-1.5 mb-3">
                         {seminar.tags.map((tag) => (
                           <span
                             key={tag}
@@ -298,6 +313,25 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
                           </span>
                         ))}
                       </div>
+
+                      {/* Ticket Highlights box if ticketed */}
+                      {seminar.hasTicket && (
+                        <div className="mb-3 p-2.5 bg-[#fff9c4]/70 border border-[#2d2d2d]/30 rounded-md flex items-center justify-between gap-2 flex-wrap text-xs font-hand">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-marker text-[10px] uppercase px-1.5 py-0.5 bg-[#ff4d4d] text-white rounded-xs">
+                              Workshop Pass
+                            </span>
+                            <span className="font-bold text-[#2d2d2d]">
+                              Price: <strong className="text-[#ff4d4d] font-marker text-sm">{seminar.ticketPrice}</strong>
+                            </span>
+                          </div>
+                          {seminar.seatsLeft && (
+                            <span className="text-[11px] text-emerald-800 font-bold">
+                              ⚡ {seminar.seatsLeft} seats left
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     {/* Footer Info & Actions */}
@@ -318,29 +352,71 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
                         <span className="truncate">{seminar.location}</span>
                       </div>
 
-                      <div className="flex items-center justify-between gap-2 pt-1">
-                        <button
-                          type="button"
-                          onClick={() => handleToggleSave(seminar.id)}
-                          className={`btn-hand-drawn px-3 py-1.5 text-xs font-marker inline-flex items-center gap-1.5 min-h-[36px] cursor-pointer ${
-                            isSaved
-                              ? 'bg-emerald-500 text-white shadow-none'
-                              : 'bg-white hover:bg-[#fff9c4] text-[#2d2d2d]'
-                          }`}
-                          style={{ borderRadius: WOBBLY_RADIUS.button }}
-                        >
-                          <BookmarkCheck className="w-3.5 h-3.5" />
-                          <span>{isSaved ? 'Reminder Saved!' : 'Save Reminder'}</span>
-                        </button>
+                      <div className="flex items-center justify-between gap-2 pt-1 flex-wrap">
+                        {/* DEDICATED TICKET PURCHASE BUTTON */}
+                        {seminar.hasTicket ? (
+                          ticketId ? (
+                            <span
+                              className="px-3 py-1.5 bg-emerald-100 border border-emerald-500 text-emerald-800 font-marker text-xs rounded-sm inline-flex items-center gap-1.5"
+                              style={{ borderRadius: WOBBLY_RADIUS.badge }}
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                              <span>Ticket Confirmed ({ticketId})</span>
+                            </span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => setTicketCheckoutSeminar(seminar)}
+                              className="btn-hand-drawn px-3.5 py-1.5 text-xs sm:text-sm font-marker bg-[#ff4d4d] hover:bg-[#e03838] text-white inline-flex items-center gap-1.5 min-h-[38px] shadow-hard-xs cursor-pointer -rotate-0.5"
+                              style={{ borderRadius: WOBBLY_RADIUS.button }}
+                            >
+                              <Ticket className="w-4 h-4" />
+                              <span>Buy Ticket · {seminar.ticketPrice}</span>
+                            </button>
+                          )
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => handleToggleSave(seminar.id)}
+                            className={`btn-hand-drawn px-3 py-1.5 text-xs font-marker inline-flex items-center gap-1.5 min-h-[36px] cursor-pointer ${
+                              isSaved
+                                ? 'bg-emerald-500 text-white shadow-none'
+                                : 'bg-white hover:bg-[#fff9c4] text-[#2d2d2d]'
+                            }`}
+                            style={{ borderRadius: WOBBLY_RADIUS.button }}
+                          >
+                            <BookmarkCheck className="w-3.5 h-3.5" />
+                            <span>{isSaved ? 'Reminder Saved!' : 'Save Reminder'}</span>
+                          </button>
+                        )}
 
-                        <button
-                          type="button"
-                          onClick={() => handleShareOrCopy(seminar.title, seminar.id)}
-                          className="btn-hand-drawn px-3 py-1.5 text-xs font-marker bg-[#fdfbf7] hover:bg-white text-[#2d2d2d] inline-flex items-center gap-1 min-h-[36px] cursor-pointer"
-                          style={{ borderRadius: WOBBLY_RADIUS.button }}
-                        >
-                          <span>{copiedLink === seminar.id ? 'Copied!' : 'Copy Details'}</span>
-                        </button>
+                        <div className="flex items-center gap-1.5">
+                          {seminar.hasTicket && (
+                            <button
+                              type="button"
+                              onClick={() => handleToggleSave(seminar.id)}
+                              className={`btn-hand-drawn p-1.5 text-xs font-marker inline-flex items-center justify-center min-h-[36px] min-w-[36px] cursor-pointer ${
+                                isSaved
+                                  ? 'bg-emerald-500 text-white shadow-none'
+                                  : 'bg-white hover:bg-[#fff9c4] text-[#2d2d2d]'
+                              }`}
+                              style={{ borderRadius: WOBBLY_RADIUS.button }}
+                              title={isSaved ? 'Reminder saved' : 'Save reminder'}
+                              aria-label={isSaved ? 'Reminder saved' : 'Save reminder'}
+                            >
+                              <BookmarkCheck className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => handleShareOrCopy(seminar.title, seminar.id)}
+                            className="btn-hand-drawn px-3 py-1.5 text-xs font-marker bg-[#fdfbf7] hover:bg-white text-[#2d2d2d] inline-flex items-center gap-1 min-h-[36px] cursor-pointer"
+                            style={{ borderRadius: WOBBLY_RADIUS.button }}
+                          >
+                            <span>{copiedLink === seminar.id ? 'Copied!' : 'Copy Details'}</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -622,6 +698,16 @@ export const LocalCampusOverview: React.FC<LocalCampusOverviewProps> = ({
           )}
         </div>
       </div>
+
+      {/* Dedicated Event & Workshop Ticket Checkout Modal with Stripe */}
+      <EventTicketCheckoutModal
+        isOpen={Boolean(ticketCheckoutSeminar)}
+        onClose={() => setTicketCheckoutSeminar(null)}
+        seminar={ticketCheckoutSeminar}
+        university={currentUni}
+        profile={profile}
+        onTicketPurchased={handleTicketPurchased}
+      />
     </section>
   );
 };
