@@ -1,4 +1,6 @@
-<img width="461" alt="ELO logo" src="https://github.com/user-attachments/assets/44613111-9507-4213-ae56-75314673a049" />
+<div align="center">
+  <img width="160" alt="ELO logo" src="https://github.com/user-attachments/assets/44613111-9507-4213-ae56-75314673a049" />
+</div>
 
 ---
 
