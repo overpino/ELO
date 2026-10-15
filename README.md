@@ -1,7 +1,4 @@
-# ELO (EUNICE · Latam · Opportunities)
-
-> **Transatlantic STEM Mobility & Fellowship Accelerator**  
-> Connecting Latin American students — starting with **Universidade Federal de Viçosa (UFV)** in Brazil — with academic opportunities, research laboratories, and specialized workshops across the **10 European universities of the EUNICE Alliance**.
+<img width="461" alt="ELO logo" src="https://github.com/user-attachments/assets/44613111-9507-4213-ae56-75314673a049" />
 
 ---
 
